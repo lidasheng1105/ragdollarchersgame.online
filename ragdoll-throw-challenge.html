@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragdoll Throw Challenge - Physics-Based Throwing Game | Free Online Game</title>
+    <meta name="description" content="Play Ragdoll Throw Challenge online for free! Test your throwing skills, aim ragdolls at targets, and challenge the limits of physics. Perfect for casual challenges and relaxation time.">
+    <meta name="keywords" content="Ragdoll Throw Challenge, ragdoll physics, throwing game, online game, free game, physics game">
+    <link rel="canonical" href="https://ragdollarchersgame.online/ragdoll-throw-challenge.html">
+    
+    <!-- Website Icon Settings -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Import Tailwind CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#8B0000', // Deep red - Main accent color, for important elements
+                        'secondary': '#704214', // Bronze color - Secondary accent, for borders and decorations
+                        'dark': '#1A1A1A',     // Near black - For cards and secondary backgrounds
+                        'darker': '#121212',   // Deeper black - For main background and footer
+                        'darkest': '#0A0A0A',  // Darkest black - For bottom layer background
+                        'accent': '#D4AF37',   // Gold - For titles and highlights
+                        'accent-light': '#E5C158', // Light gold - For hover effects
+                        'light': '#E8D8C3',    // Light brown/parchment - For text content
+                    },
+                    fontFamily: {
+                        'display': ['Cinzel', 'serif'], // Display font - For titles and important text
+                        'body': ['Roboto', 'sans-serif'], // Body font - For normal text content
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Import Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom CSS Styles - Consistent */
+        body {
+            background-color: #0A0A0A; /* Dark background base color */
+            background-image: 
+                radial-gradient(circle at 25% 25%, #121212 0%, transparent 50%), 
+                radial-gradient(circle at 75% 75%, #151515 0%, #0A0A0A 50%); /* Gradient effect for depth */
+            background-attachment: fixed; /* Fixed background, doesn't move when scrolling */
+        }
+        
+        .game-container {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); /* Gold shadow for game container, enhances visual hierarchy */
+            border: 2px solid #704214; /* Bronze border, consistent with overall color scheme */
+        }
+        
+        .section-divider {
+            height: 3px; /* Divider height */
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent); /* Gradient from transparent to gold to transparent, creates elegant divider effect */
+        }
+        
+        .search-bar:focus {
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.5); /* Gold shadow effect when search box is focused */
+        }
+        
+        .game-card {
+            transition: all 0.3s ease; /* Smooth transition effect for game cards */
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px); /* Card moves up on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+        }
+        
+        /* Scrollbar style for game recommendations - Completely hidden */
+        .games-recommendation::-webkit-scrollbar {
+            width: 0; /* Scrollbar width set to 0, completely hidden */
+            display: none; /* Extra assurance of hiding for some browsers */
+        }
+        
+        /* Hide scrollbar for Firefox */
+        .games-recommendation {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        /* Mobile device adaptation */
+        @media (max-width: 768px) {
+            .game-container {
+                height: 450px; /* Reduce game container height on mobile devices */
+            }
+            
+            .game-layout {
+                flex-direction: column; /* Change to vertical layout on mobile devices */
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-light font-body">
+    <!-- Website Header Area -->
+    <header class="w-full bg-darker bg-opacity-95 border-b border-secondary sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4">
+            <!-- Top Navigation Bar and Search Area -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <!-- Website Logo Area -->
+                <a href="/" class="text-2xl md:text-3xl font-display font-bold text-accent hover:text-accent-light transition-colors">
+                    Game World
+                </a>
+                
+                <!-- Search Function Area -->
+                <div class="w-full md:w-1/3 mt-4 md:mt-0">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            placeholder="Search games..." 
+                            class="search-bar w-full py-2 px-4 bg-dark border border-secondary rounded-full text-light focus:outline-none"
+                        >
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-accent hover:text-accent-light transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Title Area -->
+            <div class="text-center py-4">
+                <!-- Main Title(H1) - Using Game Name -->
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-accent text-center mb-4">
+                    Ragdoll Throw Challenge
+                </h1>
+                <!-- Game Short Description -->
+                <p class="text-xl md:text-2xl text-light max-w-3xl mx-auto">
+                    Test your throwing skills, aim ragdolls at targets, and challenge the limits of physics
+                </p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Game and Recommendation Area -->
+        <section class="mb-12">
+            <div class="game-layout flex flex-col lg:flex-row gap-6">
+                <!-- Left Side Main Game Area -->
+                <div class="lg:w-2/3">
+                    <div class="game-container bg-darker rounded-lg overflow-hidden">
+                        <iframe 
+                            src="https://www.crazygames.com/embed/ragdoll-throw-challenge" 
+                            class="w-full h-[650px] lg:h-[650px]" 
+                            frameborder="0" 
+                            allowfullscreen
+                            title="Play Ragdoll Throw Challenge Online"
+                        ></iframe>
+                    </div>
+                </div>
+                
+                <!-- Right Side Game Recommendation List -->
+                <div class="lg:w-1/3">
+                    <div class="bg-darker rounded-lg p-4 h-full border border-secondary flex flex-col" style="height: 650px;">
+                        <!-- Recommended Games Title -->
+                        <h3 class="text-xl font-display font-bold text-accent mb-4 pb-2 border-b border-secondary">
+                            <i class="fas fa-gamepad mr-2"></i>Recommended Games
+                        </h3>
+                        
+                        <!-- Recommended Games List -->
+                        <div class="space-y-4 overflow-y-auto flex-grow games-recommendation">
+                            <!-- Recommended Game 1 - Ragdoll Archers -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="index.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\ragdoll-archers_16x9-cover.avif" 
+                                            alt="Ragdoll Archers" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Ragdoll Archers</h4>
+                                    <p class="text-sm text-light line-clamp-2">Master archery and defeat enemies in epic ragdoll battle archery.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 2 - Snake Shooter -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="snake-shooter.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\snake-shooter-cbu_16x9-cover.avif" 
+                                            alt="Snake Shooter" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Snake Shooter</h4>
+                                    <p class="text-sm text-light line-clamp-2">Control a snake to shoot enemies, collect energy, and survive in this fun multi-functional shooting game.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 3 - Archer Ragdoll Masters -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="archer-ragdoll-masters.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\archer-ragdoll-masters_16x9-cover.avif" 
+                                            alt="Archer Ragdoll Masters" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Archer Ragdoll Masters</h4>
+                                    <p class="text-sm text-light line-clamp-2">Precise archery, feel realistic physics effects, become a master in this ragdoll archery game.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 4 - Tower vs Goblins -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="tower-vs-goblins.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\tower-vs-goblins_16x9-cover.avif" 
+                                            alt="Tower vs Goblins" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Tower vs Goblins</h4>
+                                    <p class="text-sm text-light line-clamp-2">Defend your tower, repel the goblin army's attacks, build defensive structures to achieve victory.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 5 - Feeling Arrow -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="feeling-arrow.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\feeling-arrow-cover.avif" 
+                                            alt="Feeling Arrow" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Feeling Arrow</h4>
+                                    <p class="text-sm text-light line-clamp-2">Immersive archery experience, feel the power of the arrow and hit various challenging targets.</p>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- More Games Button -->
+                        <div class="mt-4 text-center">
+                            <a href="#" class="inline-block px-4 py-2 bg-dark border border-accent rounded-full text-accent hover:bg-accent hover:text-dark transition-colors">
+                                <i class="fas fa-plus-circle mr-1"></i>Explore More Games
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Description Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Secondary Title(H2) - "About Game" Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                About Ragdoll Throw Challenge
+            </h2>
+            <div class="prose prose-lg prose-invert max-w-none">
+                <!-- Game Detailed Description First Paragraph -->
+                <p class="mb-4">
+                    Ragdoll Throw Challenge is a fun physics-based throwing game where players test their accuracy and skill by throwing ragdoll characters at various targets. The game uses a realistic physics engine to simulate the ragdoll's movement and reactions, creating hilarious and entertaining effects. Each level features different targets and obstacles, requiring players to adjust their throwing angle, power, and timing to achieve the best scores.
+                </p>
+                <!-- Game Detailed Description Second Paragraph -->
+                <p class="mb-4">
+                    The game interface is clean and intuitive, with a control system that's easy to grasp, but mastering each challenge requires practice and precise calculation. As the game progresses, the difficulty gradually increases, with targets becoming more complex and environments more variable. Ragdoll Throw Challenge, with its relaxed gameplay experience and satisfying physics effects, is an ideal choice for stress relief and casual entertainment.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Features Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Features Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                Game Features
+            </h2>
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Feature One: Real Physics -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Realistic Physics Engine</h3>
+                    <p>Experience precise physics effects, where ragdolls react realistically to throwing force, angle, and obstacles in the environment, creating fun and unpredictable results.</p>
+                </div>
+                <!-- Feature Two: Various Levels -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Diverse Level Design</h3>
+                    <p>Challenge various types of levels, from simple target throws to complex obstacle paths, each requiring different strategies.</p>
+                </div>
+                <!-- Feature Three: Skill System -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Throwing Skill Enhancement</h3>
+                    <p>Gradually master advanced throwing techniques as you progress through the game, unlock special throwing methods and abilities, enhancing game depth.</p>
+                </div>
+                <!-- Feature Four: Achievement System -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Achievements and Challenge System</h3>
+                    <p>Complete various game achievements and challenges, earn rewards and showcase your throwing master status, increasing gameplay value and replay potential.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Play Guide Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Play Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                How to Play
+            </h2>
+            <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                <!-- Ordered List - Game Operation Steps -->
+                <ol class="list-decimal list-inside space-y-3">
+                    <!-- Operation Step 1: Select Character -->
+                    <li class="text-light"><span class="font-bold text-accent">Select Character</span>: Choose from available ragdoll characters you want to throw; each character may have different characteristics.</li>
+                    <!-- Operation Step 2: Aim -->
+                    <li class="text-light"><span class="font-bold text-accent">Aim</span>: Use your mouse or touchscreen to move the crosshair, selecting the direction and angle you want to throw.</li>
+                    <!-- Operation Step 3: Charge Power -->
+                    <li class="text-light"><span class="font-bold text-accent">Charge Power</span>: Hold down the mouse or screen to accumulate power; a power bar will show your throwing strength.</li>
+                    <!-- Operation Step 4: Release -->
+                    <li class="text-light"><span class="font-bold text-accent">Release</span>: Let go of the mouse or finger to execute the throw, watching the ragdoll fly toward the target.</li>
+                    <!-- Operation Step 5: Analyze Results -->
+                    <li class="text-light"><span class="font-bold text-accent">Analyze Results</span>: Based on the ragdoll's flight path and outcome, adjust your strategy for the next throw.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Tips Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Tips Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                Victory Tips
+            </h2>
+            <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                <!-- Unordered List - Game Tips -->
+                <ul class="space-y-4">
+                    <!-- Tip 1 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>When trying new levels, start with smaller power to probe the scene and obstacle layout, then adjust your strategy accordingly.</span>
+                    </li>
+                    <!-- Tip 2 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Pay attention to the ragdoll's center of gravity; different throwing angles will affect the ragdoll's rotation and landing posture.</span>
+                    </li>
+                    <!-- Tip 3 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Use rebounding surfaces and ramps in the environment to create complex throwing paths and solve seemingly impossible challenges.</span>
+                    </li>
+                    <!-- Tip 4 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Mastering power control is key; full power throws aren't always the best choice, sometimes a precise medium power throw better achieves the goal.</span>
+                    </li>
+                    <!-- Tip 5 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Patiently try different throw combinations, remember successful throw parameters, as some levels may require multiple attempts to find the optimal solution.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer Area -->
+    <footer class="bg-darker mt-8 border-t border-secondary py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-light text-sm">
+                <!-- Copyright Information -->
+                <p class="mb-2">© 2025 Game World - All Rights Reserved</p>
+                <!-- Website Introduction -->
+                <p>Ragdoll Throw Challenge is a fun physics-based throwing game that tests your accuracy and skill.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Scripts -->
+    <script>
+        // Simple implementation of search functionality
+        document.querySelector('.search-bar').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.trim().toLowerCase();
+                alert('Search function is under development! You searched for: ' + searchTerm);
+                // Actual search functionality can be implemented here in the future
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Shooter - Control a Snake to Shoot | Play Online Free</title>
+    <meta name="description" content="Play Snake Shooter online for free! Control a snake to shoot enemies, collect energy, and survive in this fun multi-functional shooting game.">
+    <meta name="keywords" content="Snake Shooter, snake game, shooting game, online game, free game, arcade game">
+    <link rel="canonical" href="https://ragdollarchersgame.online/snake-shooter.html">
+    
+    <!-- Website Icon Settings -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Import Tailwind CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#8B0000', // Deep red - Primary emphasis color for important elements
+                        'secondary': '#704214', // Copper/bronze - Secondary emphasis color for borders and decorations
+                        'dark': '#1A1A1A',     // Near black - For cards and secondary backgrounds
+                        'darker': '#121212',   // Deeper black - For main background and footer
+                        'darkest': '#0A0A0A',  // Deepest black - For base background
+                        'accent': '#D4AF37',   // Gold - For titles and highlighting
+                        'accent-light': '#E5C158', // Light gold - For hover effects
+                        'light': '#E8D8C3',    // Light tan/parchment - For text content
+                    },
+                    fontFamily: {
+                        'display': ['Cinzel', 'serif'], // Display font - For headings and important text
+                        'body': ['Roboto', 'sans-serif'], // Body font - For regular text content
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Import Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom CSS styles - Maintain consistency */
+        body {
+            background-color: #0A0A0A; /* Deep background base color */
+            background-image: 
+                radial-gradient(circle at 25% 25%, #121212 0%, transparent 50%), 
+                radial-gradient(circle at 75% 75%, #151515 0%, #0A0A0A 50%); /* Gradient effects for depth */
+            background-attachment: fixed; /* Fixed background, doesn't move when scrolling */
+        }
+        
+        .game-container {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); /* Gold shadow for game container, enhances visual hierarchy */
+            border: 2px solid #704214; /* Copper border, consistent with overall color scheme */
+        }
+        
+        .section-divider {
+            height: 3px; /* Divider height */
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent); /* Gradient from transparent to gold to transparent, creates elegant divider effect */
+        }
+        
+        .search-bar:focus {
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.5); /* Gold shadow effect when search box is focused */
+        }
+        
+        .game-card {
+            transition: all 0.3s ease; /* Smooth transition effect for game cards */
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px); /* Card moves up when hovered */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+        }
+        
+        /* Game recommendation area scrollbar styles - Completely hidden */
+        .games-recommendation::-webkit-scrollbar {
+            width: 0; /* Scrollbar width set to 0, completely hidden */
+            display: none; /* Ensures hiding on some browsers */
+        }
+        
+        /* Hide scrollbar for Firefox */
+        .games-recommendation {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        /* Mobile device adaptation */
+        @media (max-width: 768px) {
+            .game-container {
+                height: 450px; /* Reduced game container height on mobile devices */
+            }
+            
+            .game-layout {
+                flex-direction: column; /* Vertical layout on mobile devices */
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-light font-body">
+    <!-- Website Header Area -->
+    <header class="w-full bg-darker bg-opacity-95 border-b border-secondary sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4">
+            <!-- Top Navigation Bar and Search Area -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <!-- Website Logo Area -->
+                <a href="/" class="text-2xl md:text-3xl font-display font-bold text-accent hover:text-accent-light transition-colors">
+                    Game World
+                </a>
+                
+                <!-- Search Functionality Area -->
+                <div class="w-full md:w-1/3 mt-4 md:mt-0">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            placeholder="Search games..." 
+                            class="search-bar w-full py-2 px-4 bg-dark border border-secondary rounded-full text-light focus:outline-none"
+                        >
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-accent hover:text-accent-light transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Title Area -->
+            <div class="text-center py-4">
+                <!-- Main Title(H1) - Using game name -->
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-accent text-center mb-4">
+                    Snake Shooter
+                </h1>
+                <!-- Game Brief Description -->
+                <p class="text-xl md:text-2xl text-light max-w-3xl mx-auto">
+                    Control a snake to shoot enemies, collect energy, and survive in this exciting game
+                </p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Game and Recommendations Area -->
+        <section class="mb-12">
+            <div class="game-layout flex flex-col lg:flex-row gap-6">
+                <!-- Left Main Game Area -->
+                <div class="lg:w-2/3">
+                    <div class="game-container bg-darker rounded-lg overflow-hidden">
+                        <iframe 
+                            src="https://www.crazygames.com/embed/snake-shooter-cbu" 
+                            class="w-full h-[650px] lg:h-[650px]" 
+                            frameborder="0" 
+                            allowfullscreen
+                            title="Play Snake Shooter Online"
+                        ></iframe>
+                    </div>
+                </div>
+                
+                <!-- Right Game Recommendations List -->
+                <div class="lg:w-1/3">
+                    <div class="bg-darker rounded-lg p-4 h-full border border-secondary flex flex-col" style="height: 650px;">
+                        <!-- Recommended Games Title -->
+                        <h3 class="text-xl font-display font-bold text-accent mb-4 pb-2 border-b border-secondary">
+                            <i class="fas fa-gamepad mr-2"></i>Recommended Games
+                        </h3>
+                        
+                        <!-- Recommended Games List -->
+                        <div class="space-y-4 overflow-y-auto flex-grow games-recommendation">
+                            <!-- Recommended Game 1 - Ragdoll Archers -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="index.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\ragdoll-archers_16x9-cover.avif" 
+                                            alt="Ragdoll Archers" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Ragdoll Archers</h4>
+                                    <p class="text-sm text-light line-clamp-2">Master the bow and defeat enemies in epic ragdoll battle archery combat.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 2 - Archer Ragdoll Masters -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="archer-ragdoll-masters.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\archer-ragdoll-masters_16x9-cover.avif" 
+                                            alt="Archer Ragdoll Masters" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Archer Ragdoll Masters</h4>
+                                    <p class="text-sm text-light line-clamp-2">Precise archery with realistic physics effects. Become a master in this ragdoll archery game.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 3 - Tower vs Goblins -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="tower-vs-goblins.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\tower-vs-goblins_16x9-cover.avif" 
+                                            alt="Tower vs Goblins" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Tower vs Goblins</h4>
+                                    <p class="text-sm text-light line-clamp-2">Defend your tower against goblin armies. Build defenses and achieve ultimate victory.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 4 - Ragdoll Throw Challenge -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="ragdoll-throw-challenge.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\ragdoll-throw-challenge_16x9-cover.avif" 
+                                            alt="Ragdoll Throw Challenge" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Ragdoll Throw Challenge</h4>
+                                    <p class="text-sm text-light line-clamp-2">Test your throwing skills. Throw ragdolls at targets and challenge the limits of physics.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 5 - Feeling Arrow -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="feeling-arrow.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\feeling-arrow-cover.avif" 
+                                            alt="Feeling Arrow" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Feeling Arrow</h4>
+                                    <p class="text-sm text-light line-clamp-2">An immersive archery experience where you feel the power of the arrow and hit various challenging targets.</p>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- More Games Button -->
+                        <div class="mt-4 text-center">
+                            <a href="#" class="inline-block px-4 py-2 bg-dark border border-accent rounded-full text-accent hover:bg-accent hover:text-dark transition-colors">
+                                <i class="fas fa-plus-circle mr-1"></i>Explore More Games
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Description Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Secondary Title(H2) - "About Game" title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                About Snake Shooter
+            </h2>
+            <div class="prose prose-lg prose-invert max-w-none">
+                <!-- Game Detailed Description First Paragraph -->
+                <p class="mb-4">
+                    Snake Shooter is an exciting fusion of classic snake gameplay with modern shooting mechanics. In this innovative game, you control a snake that not only grows by consuming energy but also has the ability to shoot at enemies. Navigate through various environments, avoid obstacles, and strategically eliminate opponents while collecting valuable resources to power up your snake.
+                </p>
+                <!-- Game Detailed Description Second Paragraph -->
+                <p class="mb-4">
+                    The game features multiple power-ups, weapon upgrades, and challenging stages that progressively increase in difficulty. With its intuitive controls and fast-paced action, Snake Shooter offers a fresh take on the classic snake game formula. Whether you're looking for a quick gaming session or an extended challenge, this game provides entertainment for players of all skill levels.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Features Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Features Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                Game Features
+            </h2>
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Feature One: Endless Mode -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Endless Mode Challenges</h3>
+                    <p>Test your skills in the endless mode where the difficulty increases progressively, pushing your reflexes and strategic thinking to their limits with each new stage.</p>
+                </div>
+                <!-- Feature Two: Weapon Upgrades -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Weapon Upgrades System</h3>
+                    <p>Collect special power-ups to enhance your snake's firepower, unlock new shooting patterns, and increase damage output to take down even the toughest enemies.</p>
+                </div>
+                <!-- Feature Three: Energy Collection -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Energy Collection System</h3>
+                    <p>Gather energy throughout the gameplay to grow your snake, improve abilities, and unlock special moves that help you overcome challenging situations.</p>
+                </div>
+                <!-- Feature Four: Obstacle Avoidance -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Obstacle Dodging Mechanics</h3>
+                    <p>Navigate through increasingly complex environments filled with various obstacles, requiring precise movement control and quick decision-making to survive.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Gameplay Guide Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Gameplay Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                How to Play
+            </h2>
+            <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                <!-- Ordered List - Game Operation Steps -->
+                <ol class="list-decimal list-inside space-y-3">
+                    <!-- Operation Step 1: Movement -->
+                    <li class="text-light"><span class="font-bold text-accent">Movement</span>: Use arrow keys or WASD to navigate your snake through the environment. Precise control is essential for avoiding obstacles and enemies.</li>
+                    <!-- Operation Step 2: Aim and Shoot -->
+                    <li class="text-light"><span class="font-bold text-accent">Aim and Shoot</span>: Use your mouse to aim and left-click to fire at enemies. Timing your shots is crucial for conserving ammunition and ensuring hits.</li>
+                    <!-- Operation Step 3: Collect Energy -->
+                    <li class="text-light"><span class="font-bold text-accent">Collect Energy</span>: Guide your snake to energy points scattered throughout the level to grow longer and earn points. More energy means more firepower.</li>
+                    <!-- Operation Step 4: Avoid Obstacles -->
+                    <li class="text-light"><span class="font-bold text-accent">Avoid Obstacles</span>: Navigate carefully to avoid hitting walls, barriers, and enemy projectiles. Collisions will reduce your snake's health.</li>
+                    <!-- Operation Step 5: Upgrade Weapons -->
+                    <li class="text-light"><span class="font-bold text-accent">Upgrade Weapons</span>: Collect special power-ups to enhance your shooting capabilities. Different weapons have different effects and strategic uses.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Tips Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Tips Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                Tips for Victory
+            </h2>
+            <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                <!-- Unordered List - Game Tips -->
+                <ul class="space-y-4">
+                    <!-- Tip 1 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Prioritize energy collection early in the game to increase your snake's length and scoring potential before difficulty increases.</span>
+                    </li>
+                    <!-- Tip 2 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Keep moving constantly to avoid becoming an easy target for enemies. A stationary snake is a vulnerable snake.</span>
+                    </li>
+                    <!-- Tip 3 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Use your environment strategically - sometimes avoiding enemies is better than confronting them, especially when your health is low.</span>
+                    </li>
+                    <!-- Tip 4 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Save your most powerful weapons for boss encounters or particularly difficult sections rather than using them on common enemies.</span>
+                    </li>
+                    <!-- Tip 5 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Learn the patterns of different enemy types to predict their movements and plan your attacks accordingly for maximum efficiency.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer Area -->
+    <footer class="bg-darker mt-8 border-t border-secondary py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-light text-sm">
+                <!-- Copyright Information -->
+                <p class="mb-2">© 2025 Game World - All rights reserved</p>
+                <!-- Website Brief Introduction -->
+                <p>Snake Shooter is an exciting fusion game that combines snake movement with shooting mechanics in a fast-paced environment.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Scripts -->
+    <script>
+        // Simple implementation of search functionality
+        document.querySelector('.search-bar').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.trim().toLowerCase();
+                alert('Search functionality is under development! You searched for: ' + searchTerm);
+                // Actual search functionality can be implemented here in the future
+            }
+        });
+    </script>
+</body>
+</html> 

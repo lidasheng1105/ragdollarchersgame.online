@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archer Ragdoll Masters - Precision Archery Physics Game | Free Online Game</title>
+    <meta name="description" content="Play Archer Ragdoll Masters online for free! Experience a precise archery simulation game focused on target accuracy and physics effects for a realistic archery experience.">
+    <meta name="keywords" content="Archer Ragdoll Masters, archery game, ragdoll physics, online game, free game, shooting game">
+    <link rel="canonical" href="https://ragdollarchersgame.online/archer-ragdoll-masters.html">
+    
+    <!-- Website Icon Settings -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Import Tailwind CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#8B0000', // Deep red - Main accent color, for important elements
+                        'secondary': '#704214', // Bronze color - Secondary accent, for borders and decorations
+                        'dark': '#1A1A1A',     // Near black - For cards and secondary backgrounds
+                        'darker': '#121212',   // Deeper black - For main background and footer
+                        'darkest': '#0A0A0A',  // Darkest black - For bottom layer background
+                        'accent': '#D4AF37',   // Gold - For titles and highlights
+                        'accent-light': '#E5C158', // Light gold - For hover effects
+                        'light': '#E8D8C3',    // Light brown/parchment - For text content
+                    },
+                    fontFamily: {
+                        'display': ['Cinzel', 'serif'], // Display font - For titles and important text
+                        'body': ['Roboto', 'sans-serif'], // Body font - For normal text content
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Import Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom CSS Styles - Consistent */
+        body {
+            background-color: #0A0A0A; /* Dark background base color */
+            background-image: 
+                radial-gradient(circle at 25% 25%, #121212 0%, transparent 50%), 
+                radial-gradient(circle at 75% 75%, #151515 0%, #0A0A0A 50%); /* Gradient effect for depth */
+            background-attachment: fixed; /* Fixed background, doesn't move when scrolling */
+        }
+        
+        .game-container {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); /* Gold shadow for game container, enhances visual hierarchy */
+            border: 2px solid #704214; /* Bronze border, consistent with overall color scheme */
+        }
+        
+        .section-divider {
+            height: 3px; /* Divider height */
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent); /* Gradient from transparent to gold to transparent, creates elegant divider effect */
+        }
+        
+        .search-bar:focus {
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.5); /* Gold shadow effect when search box is focused */
+        }
+        
+        .game-card {
+            transition: all 0.3s ease; /* Smooth transition effect for game cards */
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px); /* Card moves up on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+        }
+        
+        /* Scrollbar style for game recommendations - Completely hidden */
+        .games-recommendation::-webkit-scrollbar {
+            width: 0; /* Scrollbar width set to 0, completely hidden */
+            display: none; /* Extra assurance of hiding for some browsers */
+        }
+        
+        /* Hide scrollbar for Firefox */
+        .games-recommendation {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        /* Mobile device adaptation */
+        @media (max-width: 768px) {
+            .game-container {
+                height: 450px; /* Reduce game container height on mobile devices */
+            }
+            
+            .game-layout {
+                flex-direction: column; /* Change to vertical layout on mobile devices */
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-light font-body">
+    <!-- Website Header Area -->
+    <header class="w-full bg-darker bg-opacity-95 border-b border-secondary sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4">
+            <!-- Top Navigation Bar and Search Area -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <!-- Website Logo Area -->
+                <a href="/" class="text-2xl md:text-3xl font-display font-bold text-accent hover:text-accent-light transition-colors">
+                    Game World
+                </a>
+                
+                <!-- Search Function Area -->
+                <div class="w-full md:w-1/3 mt-4 md:mt-0">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            placeholder="Search games..." 
+                            class="search-bar w-full py-2 px-4 bg-dark border border-secondary rounded-full text-light focus:outline-none"
+                        >
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-accent hover:text-accent-light transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Title Area -->
+            <div class="text-center py-4">
+                <!-- Main Title(H1) - Using Game Name -->
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-accent text-center mb-4">
+                    Archer Ragdoll Masters
+                </h1>
+                <!-- Game Short Description -->
+                <p class="text-xl md:text-2xl text-light max-w-3xl mx-auto">
+                    Precise archery, feel realistic physics effects, become a master in this ragdoll archery game
+                </p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Game and Recommendation Area -->
+        <section class="mb-12">
+            <div class="game-layout flex flex-col lg:flex-row gap-6">
+                <!-- Left Side Main Game Area -->
+                <div class="lg:w-2/3">
+                    <div class="game-container bg-darker rounded-lg overflow-hidden">
+                        <iframe 
+                            src="https://www.crazygames.com/embed/archer-ragdoll-masters" 
+                            class="w-full h-[650px] lg:h-[650px]" 
+                            frameborder="0" 
+                            allowfullscreen
+                            title="Play Archer Ragdoll Masters Online"
+                        ></iframe>
+                    </div>
+                </div>
+                
+                <!-- Right Side Game Recommendation List -->
+                <div class="lg:w-1/3">
+                    <div class="bg-darker rounded-lg p-4 h-full border border-secondary flex flex-col" style="height: 650px;">
+                        <!-- Recommended Games Title -->
+                        <h3 class="text-xl font-display font-bold text-accent mb-4 pb-2 border-b border-secondary">
+                            <i class="fas fa-gamepad mr-2"></i>Recommended Games
+                        </h3>
+                        
+                        <!-- Recommended Games List -->
+                        <div class="space-y-4 overflow-y-auto flex-grow games-recommendation">
+                            <!-- Recommended Game 1 - Ragdoll Archers -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="index.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\ragdoll-archers_16x9-cover.avif" 
+                                            alt="Ragdoll Archers" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Ragdoll Archers</h4>
+                                    <p class="text-sm text-light line-clamp-2">Master archery and defeat enemies in epic ragdoll battle archery.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 2 - Snake Shooter -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="snake-shooter.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\snake-shooter-cbu_16x9-cover.avif" 
+                                            alt="Snake Shooter" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Snake Shooter</h4>
+                                    <p class="text-sm text-light line-clamp-2">Control a snake to shoot enemies, collect energy, and survive in this fun multi-functional shooting game.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 3 - Tower vs Goblins -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="tower-vs-goblins.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\tower-vs-goblins_16x9-cover.avif" 
+                                            alt="Tower vs Goblins" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Tower vs Goblins</h4>
+                                    <p class="text-sm text-light line-clamp-2">Defend your tower, repel the goblin army's attacks, build defensive structures to achieve victory.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 4 - Ragdoll Throw Challenge -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="ragdoll-throw-challenge.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\ragdoll-throw-challenge_16x9-cover.avif" 
+                                            alt="Ragdoll Throw Challenge" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Ragdoll Throw Challenge</h4>
+                                    <p class="text-sm text-light line-clamp-2">Test your throwing skills, aim ragdolls at targets, and challenge the limits of physics.</p>
+                                </a>
+                            </div>
+                            
+                            <!-- Recommended Game 5 - Feeling Arrow -->
+                            <div class="game-card bg-dark p-3 rounded-lg border border-secondary hover:border-accent">
+                                <a href="feeling-arrow.html" class="block">
+                                    <div class="aspect-w-16 aspect-h-9 mb-2">
+                                        <img 
+                                            src="image\feeling-arrow-cover.avif" 
+                                            alt="Feeling Arrow" 
+                                            class="w-full h-full object-cover rounded-md"
+                                        >
+                                    </div>
+                                    <h4 class="font-bold text-accent">Feeling Arrow</h4>
+                                    <p class="text-sm text-light line-clamp-2">Immersive archery experience, feel the power of the arrow and hit various challenging targets.</p>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- More Games Button -->
+                        <div class="mt-4 text-center">
+                            <a href="#" class="inline-block px-4 py-2 bg-dark border border-accent rounded-full text-accent hover:bg-accent hover:text-dark transition-colors">
+                                <i class="fas fa-plus-circle mr-1"></i>Explore More Games
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Description Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Secondary Title(H2) - "About Game" Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                About Archer Ragdoll Masters
+            </h2>
+            <div class="prose prose-lg prose-invert max-w-none">
+                <!-- Game Detailed Description First Paragraph -->
+                <p class="mb-4">
+                    Archer Ragdoll Masters is a fantastic archery simulation game that combines realistic physics effects and ragdoll animation to provide players with a unique archery experience. The game focuses on precise aiming and shooting mechanics, allowing you to feel the authentic control of a bow. In the game, you need to aim at various targets, considering the effects of wind, distance, and gravity, to showcase your archery skills.
+                </p>
+                <!-- Game Detailed Description Second Paragraph -->
+                <p class="mb-4">
+                    The game features an intuitive yet deep control system that allows players to precisely adjust aiming angles and draw power. As you progress through levels, targets become more complex and challenging, requiring players to continuously improve their skills. Whether you're an archery enthusiast or a player looking for a strategic gaming experience, Archer Ragdoll Masters will provide you with satisfaction and fun.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Features Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Features Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                Game Features
+            </h2>
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Feature One: Realistic Physics -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Realistic Physics Simulation</h3>
+                    <p>Experience realistic bow and arrow physics effects, including gravity, wind direction, and distance affecting arrow trajectories, creating an authentic archery feeling.</p>
+                </div>
+                <!-- Feature Two: Ragdoll Effect -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Ragdoll Animation Effects</h3>
+                    <p>Watch targets react to your shots with realistic ragdoll physics, producing unique and entertaining animation effects with each hit.</p>
+                </div>
+                <!-- Feature Three: Various Challenges -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Diverse Challenges</h3>
+                    <p>Challenge various types of targets and scenarios, from stationary targets to moving objects, and even complex multi-target combinations.</p>
+                </div>
+                <!-- Feature Four: Skill Progression -->
+                <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                    <h3 class="text-xl font-bold text-accent mb-3">Skill Progression System</h3>
+                    <p>Unlock new bow types and abilities as you progress through the game, improve your archery precision and skills through practice, and become a true archery master.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Play Guide Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Play Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                How to Play
+            </h2>
+            <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                <!-- Ordered List - Game Operation Steps -->
+                <ol class="list-decimal list-inside space-y-3">
+                    <!-- Operation Step 1: Aim -->
+                    <li class="text-light"><span class="font-bold text-accent">Aim</span>: Use your mouse or touchscreen to move the crosshair, aiming at your target.</li>
+                    <!-- Operation Step 2: Draw Bow -->
+                    <li class="text-light"><span class="font-bold text-accent">Draw Bow</span>: Hold down the left mouse button or press on the screen to draw the bowstring; the longer you hold, the more power your shot will have.</li>
+                    <!-- Operation Step 3: Consider Factors -->
+                    <li class="text-light"><span class="font-bold text-accent">Consider External Factors</span>: Pay attention to the wind direction indicator and distance, as they will affect the arrow's flight path.</li>
+                    <!-- Operation Step 4: Release Arrow -->
+                    <li class="text-light"><span class="font-bold text-accent">Release Arrow</span>: Release the left mouse button or your finger to shoot the arrow, and watch it fly toward the target.</li>
+                    <!-- Operation Step 5: Analyze Results -->
+                    <li class="text-light"><span class="font-bold text-accent">Analyze Results</span>: Observe where your arrow hits, adjust your aiming strategy, and improve your accuracy for the next shot.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- Divider -->
+        <div class="section-divider w-full max-w-4xl mx-auto mb-12"></div>
+        
+        <!-- Game Tips Area -->
+        <section class="mb-12 max-w-4xl mx-auto">
+            <!-- Game Tips Title -->
+            <h2 class="text-3xl font-display font-bold text-accent mb-6">
+                Victory Tips
+            </h2>
+            <div class="bg-dark bg-opacity-60 p-6 rounded-lg border border-secondary">
+                <!-- Unordered List - Game Tips -->
+                <ul class="space-y-4">
+                    <!-- Tip 1 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Aim slightly above your target, considering that gravity will cause the arrow to drop during flight.</span>
+                    </li>
+                    <!-- Tip 2 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>In windy conditions, adjust your aim based on the wind direction indicator; shooting against the wind requires more power.</span>
+                    </li>
+                    <!-- Tip 3 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>For moving targets, anticipate their movement path and aim at where the target will be rather than its current position.</span>
+                    </li>
+                    <!-- Tip 4 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Keep a steady hand and avoid moving your mouse or finger at the moment of releasing the arrow, as this will affect accuracy.</span>
+                    </li>
+                    <!-- Tip 5 -->
+                    <li class="flex items-start">
+                        <span class="text-accent mr-2">→</span>
+                        <span>Practice mastering different draw power levels and their corresponding ranges, and learn how to adjust draw time based on distance.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer Area -->
+    <footer class="bg-darker mt-8 border-t border-secondary py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-light text-sm">
+                <!-- Copyright Information -->
+                <p class="mb-2">© 2025 Game World - All Rights Reserved</p>
+                <!-- Website Introduction -->
+                <p>Archer Ragdoll Masters is a fantastic archery simulation game, combining realistic physics effects and ragdoll animation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Scripts -->
+    <script>
+        // Simple implementation of search functionality
+        document.querySelector('.search-bar').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.trim().toLowerCase();
+                alert('Search function is under development! You searched for: ' + searchTerm);
+                // Actual search functionality can be implemented here in the future
+            }
+        });
+    </script>
+</body>
+</html> 
